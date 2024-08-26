@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 // use App\Http\Controllers\Controller;
+use App\Models\History_Chat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -14,32 +15,77 @@ class GeminiAIController extends Controller
     // {
     //     $this->geminiService = $geminiService;
     // }
-    public function handleChat(Request $request){
-        $input = $request-> input('message');
+    public function handleChat(Request $request)
+    {
+        $input = $request->input('message');
 
-        $url=env('GEMINI_API_BASE_URL').env('GEMINI_API_KEY');
+        $url = env('GEMINI_API_BASE_URL') . env('GEMINI_API_KEY');
 
-        $payload =[
-            'contents'=>[
+        $payload = [
+            'contents' => [
 
                 [
                     'role' => 'user',
                     'parts' => [
-                        ['text'=> $input]
+                        ['text' => $input]
                     ],
                 ]
 
             ]
-            
-                ];
 
-                $response = Http::withHeaders([
-                    'Content-Type'=> 'application/json'
-                ])->post($url, $payload);
+        ];
 
-                $chatbotResponse = $response->json() ['candidates'][0] ['content'] ['parts'][0] ['text'] ?? 'No response'  ;
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json'
+        ])->post($url, $payload);
 
-                return redirect()->back()->with('response', $chatbotResponse);
-            }
-        }
+        $chatbotResponse = $response->json()['candidates'][0]['content']['parts'][0]['text'] ?? 'No response';
+
+        return redirect()->back()->with('response', $chatbotResponse);
+
+    }
+    public function index()
+    {
+
+        $history_chat = History_Chat::all();
+        return view('chat')->with('history_chat', $history_chat);
+
+    }
     
+    public function store(Request $request){
+        $input = $request->input('message');
+
+        $url = env('GEMINI_API_BASE_URL') . env('GEMINI_API_KEY');
+
+        $payload = [
+            'contents' => [
+
+                [
+                    'role' => 'user',
+                    'parts' => [
+                        ['text' => $input]
+                    ],
+                ]
+
+            ]
+
+        ];
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json'
+        ])->post($url, $payload);
+
+        $chatbotResponse = $response->json()['candidates'][0]['content']['parts'][0]['text'] ?? 'No response';
+
+        History_Chat::create([ 
+
+            'send_chat'=> $input,
+            'get_chat'=> $chatbotResponse,
+        ]);
+
+        return redirect()->back()->with('response', $chatbotResponse);
+
+    }
+
+}
+

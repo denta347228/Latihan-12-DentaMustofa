@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\GeminiAIController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +25,11 @@ Route::get('/chat', function () {
 });
 
 Route::post('/chat', [GeminiAIController::class, 'handleChat'])->name('chat');
+
+Route::resource('/history_chat', GeminiAIController::class);
+
+//kontroler biodata
+Route::resource('/biodata', BiodataController::class);
 
 // Route::group(['prefix'=> 'sarch'] , function () {
 //     Route::POST('/', [UserController::class,"searchUser"]);
