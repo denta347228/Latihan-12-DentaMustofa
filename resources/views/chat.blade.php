@@ -13,28 +13,28 @@
 
 <body class="bg dark">
     <div class="container mt-5">
-    <table id="chatHistoryTable" class="table table-striped table-bordered ">
-    <thead>
-            <tr>
-                <th>Send chat</th>
-                <th>Get chat</th>
-                <th>action</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach ($history_chat as $item )
+        <table id="chatHistoryTable" class="table table-striped table-bordered ">
+            <thead>
+                <tr>
+                    <th>Send chat</th>
+                    <th>Get chat</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($history_chat as $item)
 
 
-        <tr>
-                <td class="">{{$item->send_chat}} </td>
-                <td class="">{{$item->get_chat}} </td>
-                <td>
-                    <a href=""></a>
-                </td>
-        </tr>
-        @endforeach
-        </tbody>
-       </table> 
+                    <tr>
+                        <td class="">{{$item->send_chat}} </td>
+                        <td class="">{{$item->get_chat}} </td>
+                        <td>
+                            <a href=""></a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
         <h1 class="text-Bold">SABRINA</h1>
         <form action="{{route('history_chat.store')}}" method="POST">

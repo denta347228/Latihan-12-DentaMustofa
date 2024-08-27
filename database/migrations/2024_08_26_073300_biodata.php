@@ -17,16 +17,19 @@ return new class extends Migration
             $table->string('nik',20);
             $table->integer('umur');
             $table->text('alamat');
+            $table->string('image_path');
             $table->timestamps();
 
     });
 }
+ 
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('biodata');
     }
 };

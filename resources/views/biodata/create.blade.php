@@ -15,7 +15,7 @@
 
     <div class="container">
 
-    <form action="{{route('biodata.store')}}" method="POST">
+    <form action="{{route('biodata.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
         <label  class="form-label" for="nama_lengkap">Nama lengkap</label>
@@ -32,6 +32,10 @@
         <div class="mb-3">
         <label class="form-label" for="alamat">Alamat</label>
         <input class="form-control" type="text" name="alamat" value="{{old('alamat')}}" required><br>
+        </div>
+        <div class="mb-3">
+        <label class="form-label" for="image">Image</label>
+        <input class="form-control" type="file" name="image" value="{{old('image')}}" required><br>
         </div>
         <button class="btn btn-success w-100" type="submit">Submit</button>
     </form>

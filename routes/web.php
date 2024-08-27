@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BiodataController;
 use App\Http\Controllers\GeminiAIController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,3 +42,13 @@ Route::resource('/biodata', BiodataController::class);
 
 // Route::get("/search", [UserController::class,"searchUser"]);
 // Route::get("/finduser/{id}", [UserController::class,"finduser"]);
+
+Route::get('/admin', function () {
+    return view('admin.kategori');
+});
+
+Route::get('/adminkategori', [KategoriController::class, 'index']);
+
+
+
+

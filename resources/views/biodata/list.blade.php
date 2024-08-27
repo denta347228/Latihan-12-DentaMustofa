@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{app()->getLocale()}}">
 
 <head>
     <meta charset="UTF-8">
@@ -12,41 +12,46 @@
 
 <body>
 
-<div class="container">
-  
+    <div class="container">
+
         <h1 class="text-center">Daftar Hitam BRI</h1>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Nama lengkap</th>
-                <th>NIK</th>
-                <th>Umur</th>
-                <th>Alamat</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        @foreach ($biodata as $item)
-            <tr>
-                <td> {{$item->nama_lengkap}} </td>
-                <td> {{$item->nik}} </td>
-                <td> {{$item->umur}} </td>
-                <td> {{$item->alamat}} </td>
-                <td>
-                    <a href="{{ route('biodata.edit', $item->id)}}" class="btn btn-primary">edit</a>             
-                    <form action="{{ route('biodata.destroy', $item->id) }}" method="post" class="d-inline-block">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                
-            
-                </td>
-            </tr>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nama lengkap</th>
+                    <th>NIK</th>
+                    <th>Umur</th>
+                    <th>Alamat</th>
+                    <th>Gambar</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            @foreach ($biodata as $item)
+                <tr>
+                    <td> {{$item->nama_lengkap}} </td>
+                    <td> {{$item->nik}} </td>
+                    <td> {{$item->umur}} </td>
+                    <td> {{$item->alamat}} </td>
+                    <td> @isset($item->image_path)
+                        <img src="{{asset('storage/' . $item->image_path)}}" alt="image"  w-30>
+                    @endisset
+                    </td>
+                    <td>
+                        <a href="{{ route('biodata.edit', $item->id)}}" class="btn btn-primary">edit</a>
+                        <form action="{{ route('biodata.destroy', $item->id) }}" method="post" class="d-inline-block">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
 
-        @endforeach
-    </table>
-    <a href="{{ route('biodata.create') }}"class="btn btn-success w-100">add new biodata</a>
+
+                    </td>
+                </tr>
+
+            @endforeach
+        </table>
+        <a href="{{ route('biodata.create') }}" class="btn btn-success w-100">add new biodata</a>
     </div>
 
 
