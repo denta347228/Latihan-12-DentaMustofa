@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BiodataController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\GeminiAIController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
@@ -49,6 +50,6 @@ Route::get('/admin', function () {
 
 Route::get('/adminkategori', [KategoriController::class, 'index']);
 
-
+//API
 
 
